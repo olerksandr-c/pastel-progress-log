@@ -17,9 +17,76 @@ import {
   Calendar,
   Download
 } from "lucide-react";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function WorkJournal() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+
+  const generatePDFReport = () => {
+    const doc = new jsPDF();
+    
+    // Set font for Ukrainian text support
+    doc.setFont('helvetica');
+    
+    // Header
+    doc.setFontSize(16);
+    doc.text('ЖУРНАЛ ОБЛІКУ ВИКОНАНИХ РОБІТ', 105, 20, { align: 'center' });
+    
+    // Company info
+    doc.setFontSize(12);
+    doc.text('Підрозділ: АСУ ТП служба телекомунікацій', 20, 35);
+    
+    // Period
+    const currentDate = new Date();
+    const periodText = `Період проведення робіт: «${currentDate.getDate()}» ${currentDate.toLocaleDateString('uk-UA', { month: 'long' })} ${currentDate.getFullYear()}р`;
+    doc.text(periodText, 20, 45);
+    
+    // Table data
+    const tableData = workOrders.map((order, index) => [
+      (index + 1).toString(),
+      order.completedDate || order.createdDate,
+      order.location,
+      order.description,
+      order.engineer,
+      ''
+    ]);
+    
+    // Table
+    (doc as any).autoTable({
+      head: [['№пп', 'Дата', "Об'єкт", 'Опис виконаних робіт', 'Відповідальні особи', 'Примітка']],
+      body: tableData,
+      startY: 60,
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+      },
+      headStyles: {
+        fillColor: [240, 240, 240],
+        textColor: [0, 0, 0],
+        fontStyle: 'bold',
+      },
+      columnStyles: {
+        0: { cellWidth: 15 },
+        1: { cellWidth: 25 },
+        2: { cellWidth: 30 },
+        3: { cellWidth: 60 },
+        4: { cellWidth: 35 },
+        5: { cellWidth: 25 }
+      },
+      margin: { left: 10, right: 10 }
+    });
+    
+    // Get final Y position
+    const finalY = (doc as any).lastAutoTable.finalY || 150;
+    
+    // Signature section
+    doc.text(`Підпис_____________ О.В. Жук`, 20, finalY + 30);
+    doc.text(`Дата заповнення ${currentDate.toLocaleDateString('uk-UA')}р`, 20, finalY + 45);
+    
+    // Save the PDF
+    doc.save(`Журнал_робіт_${currentDate.toISOString().split('T')[0]}.pdf`);
+  };
 
   const workOrders = [
     {
@@ -92,7 +159,7 @@ export default function WorkJournal() {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={generatePDFReport}>
             <Download className="mr-2 h-4 w-4" />
             Сформувати звіт
           </Button>
