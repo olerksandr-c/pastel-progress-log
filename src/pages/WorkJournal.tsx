@@ -18,7 +18,7 @@ import {
   Download
 } from "lucide-react";
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export default function WorkJournal() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -53,7 +53,7 @@ export default function WorkJournal() {
     ]);
     
     // Table
-    (doc as any).autoTable({
+    autoTable(doc, {
       head: [['№пп', 'Дата', "Об'єкт", 'Опис виконаних робіт', 'Відповідальні особи', 'Примітка']],
       body: tableData,
       startY: 60,
@@ -78,7 +78,7 @@ export default function WorkJournal() {
     });
     
     // Get final Y position
-    const finalY = (doc as any).lastAutoTable.finalY || 150;
+    const finalY = (doc as any).lastAutoTable?.finalY || 150;
     
     // Signature section
     doc.text(`Підпис_____________ О.В. Жук`, 20, finalY + 30);
