@@ -155,10 +155,14 @@ export default function WorkJournal() {
         <div>
           <h1 className="text-3xl font-bold text-foreground">Журнал обліку виконаних робіт</h1>
           <p className="text-muted-foreground mt-2">
-            Управління нарядами на роботу та контроль виконання
+            Управління завданнями на роботу та контроль виконання
           </p>
         </div>
         <div className="flex gap-3">
+          <Button variant="outline" size="sm">
+            <Calendar className="mr-2 h-4 w-4" />
+            План на тиждень
+          </Button>
           <Button variant="outline" size="sm" onClick={generatePDFReport}>
             <Download className="mr-2 h-4 w-4" />
             Сформувати звіт
@@ -172,7 +176,7 @@ export default function WorkJournal() {
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
               <DialogHeader>
-                <DialogTitle>Створення нового наряду на роботу</DialogTitle>
+                <DialogTitle>Створення нового завдання на роботу</DialogTitle>
                 <DialogDescription>
                   Заповніть форму для створення нового запису про виконані роботи
                 </DialogDescription>
@@ -332,9 +336,9 @@ export default function WorkJournal() {
       {/* Work Orders List */}
       <Card>
         <CardHeader>
-          <CardTitle>Наряди на роботу</CardTitle>
+          <CardTitle>Завдання на роботу</CardTitle>
           <CardDescription>
-            Список всіх нарядів на роботу з можливістю фільтрації та сортування
+            Список всіх завдань на роботу з можливістю фільтрації та сортування
           </CardDescription>
         </CardHeader>
         <CardContent>

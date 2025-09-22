@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,10 +14,61 @@ import {
   Wrench,
   AlertCircle,
   CheckCircle,
-  Settings
+  Settings,
+  ChevronRight,
+  ChevronDown,
+  Building2,
+  Zap,
+  Network
 } from "lucide-react";
 
 export default function Equipment() {
+  const hierarchyData = [
+    {
+      id: "org1",
+      name: "АТ ЧЕРНІГІВОБЛЕНЕРГО",
+      type: "organization",
+      children: [
+        {
+          id: "rem1", 
+          name: "ВП Чернігівський РЕМ",
+          type: "rem",
+          children: [
+            {
+              id: "dep1",
+              name: "Городнянська дільниця", 
+              type: "department",
+              children: [
+                {
+                  id: "sub1",
+                  name: "ПС 110/35/10 Городня",
+                  type: "substation"
+                }
+              ]
+            },
+            {
+              id: "dep2",
+              name: "Бахмацька дільниця",
+              type: "department", 
+              children: [
+                {
+                  id: "sub2",
+                  name: "ПС 110/35/10 Бахмач-2",
+                  type: "substation"
+                },
+                {
+                  id: "sub3", 
+                  name: "ПС 35/10 Батурин",
+                  type: "substation"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
   const locations = [
     {
       id: 1,
@@ -57,6 +109,13 @@ export default function Equipment() {
         { type: "ББЖ", model: "APC Smart-UPS 1500VA", quantity: 1 },
         { type: "Плата ТУ", model: "", quantity: 4 },
         { type: "Плата ТС", model: "", quantity: 8 }
+      ],
+      maintenanceSchedule: [
+        { component: "Процесор", nextMaintenance: "2024-12-15" },
+        { component: "Модем", nextMaintenance: "2024-11-20" },
+        { component: "ББЖ", nextMaintenance: "2024-10-30" },
+        { component: "Плата ТУ", nextMaintenance: "2025-01-15" },
+        { component: "Плата ТС", nextMaintenance: "2025-01-15" }
       ]
     },
     {
@@ -73,9 +132,64 @@ export default function Equipment() {
         { type: "Контролер приєднань", model: "МР-570М1В", quantity: 2 },
         { type: "ББЖ", model: "APC UPS 500", quantity: 1 },
         { type: "Обігрівач", model: "Planshery-215 150v", quantity: 1 }
+      ],
+      maintenanceSchedule: [
+        { component: "Перетворювач RS-485", nextMaintenance: "2024-11-15" },
+        { component: "Контролер приєднань", nextMaintenance: "2024-12-01" },
+        { component: "ББЖ", nextMaintenance: "2024-10-25" },
+        { component: "Обігрівач", nextMaintenance: "2024-11-30" }
       ]
     }
   ];
+
+  // Tree component for hierarchical view
+  const TreeNode = ({ node, level = 0 }: { node: any; level?: number }) => {
+    const [isExpanded, setIsExpanded] = React.useState(true);
+    
+    const getIcon = (type: string) => {
+      switch (type) {
+        case 'organization': return <Building2 className="h-4 w-4" />;
+        case 'rem': return <Network className="h-4 w-4" />;
+        case 'department': return <HardDrive className="h-4 w-4" />;
+        case 'substation': return <Zap className="h-4 w-4" />;
+        default: return <div className="w-4 h-4" />;
+      }
+    };
+
+    const hasChildren = node.children && node.children.length > 0;
+    
+    return (
+      <div className="select-none">
+        <div 
+          className={`flex items-center gap-2 py-2 px-3 hover:bg-muted/50 rounded cursor-pointer border border-border ${
+            level === 0 ? 'border-2' : level === 1 ? 'ml-6' : level === 2 ? 'ml-12' : 'ml-18'
+          }`}
+          onClick={() => hasChildren && setIsExpanded(!isExpanded)}
+        >
+          {hasChildren && (
+            <button className="p-0.5">
+              {isExpanded ? (
+                <ChevronDown className="h-3 w-3" />
+              ) : (
+                <ChevronRight className="h-3 w-3" />
+              )}
+            </button>
+          )}
+          {!hasChildren && <div className="w-4" />}
+          {getIcon(node.type)}
+          <span className="font-medium text-sm">{node.name}</span>
+        </div>
+        
+        {hasChildren && isExpanded && (
+          <div className="ml-4">
+            {node.children.map((child: any) => (
+              <TreeNode key={child.id} node={child} level={level + 1} />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -99,10 +213,29 @@ export default function Equipment() {
       </div>
 
       <Tabs defaultValue="locations" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="locations">Об'єкти</TabsTrigger>
+          <TabsTrigger value="network">Мережа</TabsTrigger>
           <TabsTrigger value="equipment">Обладнання</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="network" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Структура мережі</CardTitle>
+              <CardDescription>
+                Ієрархічне відображення організаційної структури
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {hierarchyData.map((node) => (
+                  <TreeNode key={node.id} node={node} />
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="locations" className="space-y-6">
           {/* Search and Filters */}
@@ -240,27 +373,82 @@ export default function Equipment() {
                 </CardHeader>
                 
                 <CardContent>
-                  <div>
-                    <h4 className="text-sm font-medium mb-3 text-foreground">Компоненти</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                      {item.components.map((component, index) => (
-                        <div 
-                          key={index}
-                          className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm"
-                        >
-                          <div>
-                            <span className="font-medium">{component.type}</span>
-                            {component.model && (
-                              <div className="text-muted-foreground text-xs">
-                                {component.model}
-                              </div>
-                            )}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left side - Equipment Schematic */}
+                    <div>
+                      <h4 className="text-sm font-medium mb-3 text-foreground">Шафа КП ТМ</h4>
+                      <div className="border-2 border-border rounded-lg p-4 bg-muted/20 min-h-[200px] relative">
+                        {/* Simplified cabinet representation */}
+                        <div className="space-y-2">
+                          <div className="border border-primary bg-primary/10 p-3 rounded text-xs text-center">
+                            {item.components.find(c => c.type === "Процесор")?.model || "Процесор"}
                           </div>
-                          <Badge variant="secondary" className="text-xs">
-                            {component.quantity}
-                          </Badge>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
+                              Модем
+                            </div>
+                            <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
+                              ББЖ
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-4 gap-1">
+                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТУ</div>
+                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТУ</div>
+                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТС</div>
+                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТС</div>
+                          </div>
                         </div>
-                      ))}
+                      </div>
+                      
+                      {/* Components List */}
+                      <div className="mt-4">
+                        <h4 className="text-sm font-medium mb-3 text-foreground">Компоненти</h4>
+                        <div className="grid grid-cols-1 gap-2">
+                          {item.components.map((component, index) => (
+                            <div 
+                              key={index}
+                              className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm"
+                            >
+                              <div>
+                                <span className="font-medium">{component.type}</span>
+                                {component.model && (
+                                  <div className="text-muted-foreground text-xs">
+                                    {component.model}
+                                  </div>
+                                )}
+                              </div>
+                              <Badge variant="secondary" className="text-xs">
+                                {component.quantity}
+                              </Badge>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right side - Maintenance Schedule Table */}
+                    <div>
+                      <h4 className="text-sm font-medium mb-3 text-foreground">
+                        Перелік обладнання з датою заміни наступним ТО
+                      </h4>
+                      <div className="border border-border rounded-lg">
+                        <div className="bg-muted/50 px-4 py-3 border-b border-border">
+                          <div className="grid grid-cols-2 gap-4 text-xs font-medium text-muted-foreground uppercase">
+                            <div>Компонент</div>
+                            <div>Дата ТО</div>
+                          </div>
+                        </div>
+                        <div className="divide-y divide-border">
+                          {item.maintenanceSchedule.map((maintenance, index) => (
+                            <div key={index} className="grid grid-cols-2 gap-4 px-4 py-3 text-sm hover:bg-muted/30">
+                              <div className="font-medium">{maintenance.component}</div>
+                              <div className="text-muted-foreground">
+                                {maintenance.nextMaintenance}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>

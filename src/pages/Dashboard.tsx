@@ -21,10 +21,17 @@ export default function Dashboard() {
       color: "text-warning"
     },
     {
+      title: "На розгляд", 
+      value: "3",
+      description: "Чекають планування",
+      icon: AlertTriangle,
+      color: "text-accent"
+    },
+    {
       title: "На затвердженні", 
       value: "5",
       description: "Чекають підтвердження",
-      icon: AlertTriangle,
+      icon: Clock,
       color: "text-primary"
     },
     {
@@ -89,7 +96,7 @@ export default function Dashboard() {
           </Button>
           <Button size="sm">
             <Plus className="mr-2 h-4 w-4" />
-            Створити наряд
+            Створити завдання
           </Button>
         </div>
       </div>
@@ -121,7 +128,7 @@ export default function Dashboard() {
             <div>
               <CardTitle>Останні роботи</CardTitle>
               <CardDescription>
-                Нещодавні наряди на роботу та їх статус
+                Нещодавні завдання на роботу та їх статус
               </CardDescription>
             </div>
             <Button variant="outline" size="sm">
