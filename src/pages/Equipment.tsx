@@ -469,7 +469,11 @@ export default function Equipment() {
               {/* Locations List */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {locations
-                  .filter(location => !selectedOrgUnit || location.name.includes(selectedOrgUnit.split(' ').pop() || ''))
+                  .filter(location => {
+                    if (!selectedOrgUnit) return true; // No selection - show all
+                    if (selectedOrgUnit === "АТ ЧЕРНІГІВОБЛЕНЕРГО") return true; // Top level - show all
+                    return location.name.includes(selectedOrgUnit.split(' ').pop() || ''); // Filter by selected unit
+                  })
                   .map((location) => (
                   <Card 
                     key={location.id} 
