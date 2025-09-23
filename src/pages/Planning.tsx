@@ -15,10 +15,12 @@ import {
   Settings,
   AlertCircle,
   CheckCircle,
-  Wrench
+  Wrench,
+  Download
 } from "lucide-react";
 
 export default function Planning() {
+  const [showImportDialog, setShowImportDialog] = useState(false);
   const [isScheduleDialogOpen, setIsScheduleDialogOpen] = useState(false);
 
   const maintenanceSchedules = [
@@ -238,10 +240,21 @@ export default function Planning() {
                   </div>
                 </div>
                 
-                <Button>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Підтягнути завдання "На розгляд"
-                </Button>
+                <div className="flex gap-3">
+                  <Button size="sm" className="flex-1">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Підтягнути завдання "На розгляд"
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={() => setShowImportDialog(true)}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Імпорт дефектів
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -464,6 +477,18 @@ export default function Planning() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Import Defects Dialog */}
+      <Dialog open={showImportDialog} onOpenChange={setShowImportDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Імпорт дефектів</DialogTitle>
+            <DialogDescription>
+              Буде реалізовано в перспективі
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

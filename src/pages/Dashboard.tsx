@@ -10,8 +10,10 @@ import {
   Calendar,
   MapPin
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const stats = [
     {
       title: "Активні роботи",
@@ -90,7 +92,7 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => navigate('/planning')}>
             <Calendar className="mr-2 h-4 w-4" />
             Планувати роботу
           </Button>

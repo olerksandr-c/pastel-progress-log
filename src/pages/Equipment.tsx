@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
   Search, 
   Plus, 
@@ -23,6 +24,8 @@ import {
 } from "lucide-react";
 
 export default function Equipment() {
+  const [selectedOrgUnit, setSelectedOrgUnit] = React.useState<string | null>(null);
+  const [showObjectPassport, setShowObjectPassport] = React.useState(false);
   const hierarchyData = [
     {
       id: "org1",
@@ -143,7 +146,7 @@ export default function Equipment() {
   ];
 
   // Tree component for hierarchical view
-  const TreeNode = ({ node, level = 0 }: { node: any; level?: number }) => {
+  const TreeNode = ({ node, level = 0, onSelect, selectedId }: { node: any; level?: number; onSelect?: (nodeId: string) => void; selectedId?: string | null }) => {
     const [isExpanded, setIsExpanded] = React.useState(true);
     
     const getIcon = (type: string) => {
@@ -163,8 +166,13 @@ export default function Equipment() {
         <div 
           className={`flex items-center gap-2 py-2 px-3 hover:bg-muted/50 rounded cursor-pointer border border-border ${
             level === 0 ? 'border-2' : level === 1 ? 'ml-6' : level === 2 ? 'ml-12' : 'ml-18'
-          }`}
-          onClick={() => hasChildren && setIsExpanded(!isExpanded)}
+          } ${selectedId === node.name ? 'bg-primary/10 border-primary' : ''}`}
+          onClick={() => {
+            if (hasChildren) {
+              setIsExpanded(!isExpanded);
+            }
+            onSelect && onSelect(node.name);
+          }}
         >
           {hasChildren && (
             <button className="p-0.5">
@@ -183,7 +191,13 @@ export default function Equipment() {
         {hasChildren && isExpanded && (
           <div className="ml-4">
             {node.children.map((child: any) => (
-              <TreeNode key={child.id} node={child} level={level + 1} />
+              <TreeNode 
+                key={child.id} 
+                node={child} 
+                level={level + 1} 
+                onSelect={onSelect}
+                selectedId={selectedId}
+              />
             ))}
           </div>
         )}
@@ -213,92 +227,13 @@ export default function Equipment() {
       </div>
 
       <Tabs defaultValue="locations" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="locations">Об'єкти</TabsTrigger>
           <TabsTrigger value="network">Мережа</TabsTrigger>
-          <TabsTrigger value="equipment">Обладнання</TabsTrigger>
         </TabsList>
 
         <TabsContent value="network" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Структура мережі</CardTitle>
-              <CardDescription>
-                Ієрархічне відображення організаційної структури
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {hierarchyData.map((node) => (
-                  <TreeNode key={node.id} node={node} />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="locations" className="space-y-6">
-          {/* Search and Filters */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Пошук об'єктів</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Пошук за назвою або адресою..."
-                      className="pl-10"
-                    />
-                  </div>
-                </div>
-                <Button variant="outline">
-                  Фільтри
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Locations List */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {locations.map((location) => (
-              <Card key={location.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{location.name}</CardTitle>
-                      <CardDescription className="mt-1">
-                        {location.address}
-                      </CardDescription>
-                    </div>
-                    <Badge 
-                      variant={location.status === 'active' ? 'success' : 'warning'}
-                      className="text-xs"
-                    >
-                      {location.status === 'active' ? 'Активний' : 'ТО'}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <HardDrive className="h-4 w-4" />
-                      <span>{location.equipmentCount} одиниць обладнання</span>
-                    </div>
-                    <Button variant="ghost" size="sm">
-                      <Settings className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="equipment" className="space-y-6">
-          {/* Search and Filters */}
+          {/* Search Equipment */}
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Пошук обладнання</CardTitle>
@@ -314,6 +249,23 @@ export default function Equipment() {
                 </div>
                 <Input placeholder="Інвентарний номер" />
                 <Input placeholder="Код підприємства" />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Network Hierarchy */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Структура мережі</CardTitle>
+              <CardDescription>
+                Ієрархічне відображення організаційної структури
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {hierarchyData.map((node) => (
+                  <TreeNode key={node.id} node={node} />
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -456,7 +408,121 @@ export default function Equipment() {
             ))}
           </div>
         </TabsContent>
+
+        <TabsContent value="locations" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Left side - Organizational Structure */}
+            <div className="lg:col-span-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Структура організації</CardTitle>
+                  <CardDescription>
+                    Ієрархічне відображення організаційної структури
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {hierarchyData.map((node) => (
+                      <div key={node.id}>
+                        <TreeNode 
+                          node={node} 
+                          onSelect={(nodeId) => setSelectedOrgUnit(nodeId)}
+                          selectedId={selectedOrgUnit}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right side - Objects filtered by selected org unit */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Search and Filters */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Пошук об'єктів</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Пошук за назвою або адресою..."
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <Button variant="outline">
+                      Фільтри
+                    </Button>
+                  </div>
+                  {selectedOrgUnit && (
+                    <div className="mt-3 text-sm text-muted-foreground">
+                      Фільтр за: <span className="font-medium">{selectedOrgUnit}</span>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Locations List */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {locations
+                  .filter(location => !selectedOrgUnit || location.name.includes(selectedOrgUnit.split(' ').pop() || ''))
+                  .map((location) => (
+                  <Card 
+                    key={location.id} 
+                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => setShowObjectPassport(true)}
+                  >
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle className="text-lg">{location.name}</CardTitle>
+                          <CardDescription className="mt-1">
+                            {location.address}
+                          </CardDescription>
+                        </div>
+                        <Badge 
+                          variant={location.status === 'active' ? 'success' : 'warning'}
+                          className="text-xs"
+                        >
+                          {location.status === 'active' ? 'Активний' : 'ТО'}
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <HardDrive className="h-4 w-4" />
+                          <span>{location.equipmentCount} одиниць обладнання</span>
+                        </div>
+                        <Button variant="ghost" size="sm">
+                          <Settings className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
       </Tabs>
+
+      {/* Object Passport Dialog */}
+      <Dialog open={showObjectPassport} onOpenChange={setShowObjectPassport}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Паспорт об'єкту</DialogTitle>
+            <DialogDescription>
+              Згодом тут буде паспорт об'єкту
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
