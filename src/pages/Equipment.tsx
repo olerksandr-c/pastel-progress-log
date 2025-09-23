@@ -163,10 +163,10 @@ export default function Equipment() {
     
     return (
       <div className="select-none">
-        <div 
-          className={`flex items-center gap-2 py-2 px-3 hover:bg-muted/50 rounded cursor-pointer border border-border ${
-            level === 0 ? 'border-2' : level === 1 ? 'ml-6' : level === 2 ? 'ml-12' : 'ml-18'
-          } ${selectedId === node.name ? 'bg-primary/10 border-primary' : ''}`}
+        <div
+          className={`flex items-center gap-2 py-2 px-3 hover:bg-muted/50 rounded cursor-pointer ${
+            level === 0 ? '' : level === 1 ? 'ml-3' : level === 2 ? 'ml-6' : 'ml-9'
+          } ${selectedId === node.name ? 'bg-primary/10' : ''}`}
           onClick={() => {
             if (hasChildren) {
               setIsExpanded(!isExpanded);
@@ -189,12 +189,12 @@ export default function Equipment() {
         </div>
         
         {hasChildren && isExpanded && (
-          <div className="ml-4">
+          <div>
             {node.children.map((child: any) => (
-              <TreeNode 
-                key={child.id} 
-                node={child} 
-                level={level + 1} 
+              <TreeNode
+                key={child.id}
+                node={child}
+                level={level + 1}
                 onSelect={onSelect}
                 selectedId={selectedId}
               />
