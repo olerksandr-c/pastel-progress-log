@@ -15,7 +15,7 @@ import {
 
 const navigation = [
   { name: "Головна", href: "/", icon: Home },
-  { name: "Журнал робіт", href: "/work-journal", icon: ClipboardList },
+  { name: "Журнал обліку виконаних робіт", href: "/work-journal", icon: ClipboardList },
   { name: "Об'єкти та обладнання", href: "/equipment", icon: HardDrive },
   { name: "Карта об'єктів", href: "/map", icon: Map },
   { name: "Планування", href: "/planning", icon: Calendar },

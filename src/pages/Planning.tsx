@@ -15,10 +15,12 @@ import {
   Settings,
   AlertCircle,
   CheckCircle,
-  Wrench
+  Wrench,
+  Download
 } from "lucide-react";
 
 export default function Planning() {
+  const [showImportDialog, setShowImportDialog] = useState(false);
   const [isScheduleDialogOpen, setIsScheduleDialogOpen] = useState(false);
 
   const maintenanceSchedules = [
@@ -209,11 +211,118 @@ export default function Planning() {
         </div>
       </div>
 
-      <Tabs defaultValue="schedules" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="weekly" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="weekly">Планування робіт на тиждень</TabsTrigger>
           <TabsTrigger value="schedules">Графіки ТО</TabsTrigger>
           <TabsTrigger value="upcoming">Заплановані роботи</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="weekly" className="space-y-6">
+          {/* Weekly Planning Form */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Формування тижневого плану робіт</CardTitle>
+              <CardDescription>
+                Виберіть період та сформуйте план робіт на тиждень з завдань "На розгляд"
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Початок тижня</Label>
+                    <Input type="date" defaultValue={new Date().toISOString().split('T')[0]} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Кінець тижня</Label>
+                    <Input type="date" />
+                  </div>
+                </div>
+                
+                <div className="flex gap-3">
+                  <Button size="sm" className="flex-1">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Підтягнути завдання "На розгляд"
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={() => setShowImportDialog(true)}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Імпорт дефектів
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Tasks Under Review */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Завдання на розгляд</CardTitle>
+              <CardDescription>
+                Завдання з "Журналу дефектів" та планові роботи для включення до тижневого плану
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {[
+                  {
+                    id: "DEF-2024-001",
+                    title: "Заміна GSM модему на ПС Киїнка",
+                    source: "Журнал дефектів",
+                    location: "ПС 'Киїнка'",
+                    priority: "Високий"
+                  },
+                  {
+                    id: "TO1-2024-015",
+                    title: "ТО-1 на РП Центральна",
+                    source: "Планові роботи",
+                    location: "РП 'Центральна'",
+                    priority: "Середній"
+                  },
+                  {
+                    id: "TO2-2024-003",
+                    title: "ТО-2 на ТП-10",
+                    source: "Планові роботи",
+                    location: "ТП-10",
+                    priority: "Низький"
+                  }
+                ].map((task) => (
+                  <div key={task.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-medium">{task.title}</h4>
+                        <Badge variant="outline" className="text-xs">{task.source}</Badge>
+                        <Badge 
+                          variant={task.priority === 'Високий' ? 'destructive' : task.priority === 'Середній' ? 'warning' : 'success'}
+                          className="text-xs"
+                        >
+                          {task.priority}
+                        </Badge>
+                      </div>
+                      <div className="text-sm text-muted-foreground">{task.location}</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm">Відхилити</Button>
+                      <Button size="sm">Включити до плану</Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-6 flex justify-end">
+                <Button>
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Сформувати тижневий план
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="schedules" className="space-y-6">
           {/* Statistics */}
@@ -304,7 +413,7 @@ export default function Planning() {
             <CardHeader>
               <CardTitle>Заплановані роботи на найближчі 7 днів</CardTitle>
               <CardDescription>
-                Автоматично створені наряди відповідно до графіків ТО
+                Автоматично створені завдання відповідно до графіків ТО
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -368,6 +477,18 @@ export default function Planning() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Import Defects Dialog */}
+      <Dialog open={showImportDialog} onOpenChange={setShowImportDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Імпорт дефектів</DialogTitle>
+            <DialogDescription>
+              Буде реалізовано в перспективі
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -74,13 +74,20 @@ export default function Administration() {
     },
     {
       id: 3,
+      name: "Типи об'єктів",
+      description: "Довідник типів об'єктів (ПС, РП, ТП, СП)",
+      recordsCount: 4,
+      lastUpdated: "2024-09-16"
+    },
+    {
+      id: 4,
       name: "Шаблони робіт",
       description: "Стандартні регламентні роботи",
       recordsCount: 12,
       lastUpdated: "2024-09-12"
     },
     {
-      id: 4,
+      id: 5,
       name: "Запчастини",
       description: "Довідник запасних частин та матеріалів",
       recordsCount: 156,
@@ -272,7 +279,7 @@ export default function Administration() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <Card className="border-2 border-primary/20">
                     <CardHeader>
                       <div className="flex items-center gap-2">
@@ -352,6 +359,34 @@ export default function Administration() {
                         <div className="flex items-center gap-2">
                           <UserCheck className="h-4 w-4 text-muted-foreground" />
                           <span>Тільки перегляд</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-center gap-2">
+                        <BookOpen className="h-5 w-5 text-muted-foreground" />
+                        <CardTitle className="text-lg">Перегляд</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Тільки перегляд даних системи
+                      </p>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center gap-2">
+                          <UserCheck className="h-4 w-4 text-success" />
+                          <span>Перегляд об'єктів</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <UserCheck className="h-4 w-4 text-success" />
+                          <span>Перегляд обладнання</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <UserCheck className="h-4 w-4 text-success" />
+                          <span>Перегляд звітів</span>
                         </div>
                       </div>
                     </CardContent>

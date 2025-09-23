@@ -10,8 +10,10 @@ import {
   Calendar,
   MapPin
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const stats = [
     {
       title: "Активні роботи",
@@ -21,10 +23,17 @@ export default function Dashboard() {
       color: "text-warning"
     },
     {
+      title: "На розгляд", 
+      value: "3",
+      description: "Чекають планування",
+      icon: AlertTriangle,
+      color: "text-accent"
+    },
+    {
       title: "На затвердженні", 
       value: "5",
       description: "Чекають підтвердження",
-      icon: AlertTriangle,
+      icon: Clock,
       color: "text-primary"
     },
     {
@@ -83,13 +92,13 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => navigate('/planning')}>
             <Calendar className="mr-2 h-4 w-4" />
             Планувати роботу
           </Button>
           <Button size="sm">
             <Plus className="mr-2 h-4 w-4" />
-            Створити наряд
+            Створити завдання
           </Button>
         </div>
       </div>
@@ -121,7 +130,7 @@ export default function Dashboard() {
             <div>
               <CardTitle>Останні роботи</CardTitle>
               <CardDescription>
-                Нещодавні наряди на роботу та їх статус
+                Нещодавні завдання на роботу та їх статус
               </CardDescription>
             </div>
             <Button variant="outline" size="sm">
