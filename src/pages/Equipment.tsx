@@ -32,39 +32,39 @@ export default function Equipment() {
   const hierarchyData = [
     {
       id: "org1",
-      name: "АТ ЧЕРНІГІВОБЛЕНЕРГО",
+      name: "ОБЛМЕРЕЖІ",
       type: "organization",
       children: [
         {
           id: "rem1", 
-          name: "ВП Чернігівський РЕМ",
+          name: "ВП Західний РЕМ",
           type: "rem",
           children: [
             {
               id: "dep1",
-              name: "Городнянська дільниця", 
+              name: "Новоселівська дільниця", 
               type: "department",
               children: [
                 {
                   id: "sub1",
-                  name: "ПС 110/35/10 Городня",
+                  name: "ПС 110/35/10 Новоселівка",
                   type: "substation"
                 }
               ]
             },
             {
               id: "dep2",
-              name: "Бахмацька дільниця",
+              name: "Прилуцька дільниця",
               type: "department", 
               children: [
                 {
                   id: "sub2",
-                  name: "ПС 110/35/10 Бахмач-2",
+                  name: "ПС 110/35/10 Прилуки-3",
                   type: "substation"
                 },
                 {
                   id: "sub3", 
-                  name: "ПС 35/10 Батурин",
+                  name: "ПС 35/10 Срібне",
                   type: "substation"
                 }
               ]
@@ -78,38 +78,38 @@ export default function Equipment() {
   const locations = [
     {
       id: 1,
-      name: "ПС 110/35/10 'Городня'",
-      address: "с. Городня, Чернігівський район",
+      name: "ПС 110/35/10 'Новоселівка'",
+      address: "с. Новоселівка, Лубенський район",
       equipmentCount: 15,
       status: "active",
       type: "ПС",
       equipment: [
         {
           id: 1,
-          name: "Комплекс ТМ на ПС 110/35/10 'Городня'",
+          name: "Комплекс ТМ на ПС 110/35/10 'Новоселівка'",
           inventoryNumber: "INV-2024-001",
-          enterpriseCode: "EC-GOR-001",
+          enterpriseCode: "EC-NOV-001",
           installDate: "2023-03-15",
           status: "active",
           nextMaintenance: "2024-10-15",
           components: [
-            { type: "Монтажна панель", model: "23TP22", quantity: 1, nextMaintenance: "2024-12-15" },
-            { type: "Плата живлення", model: "560PSU01", quantity: 1, nextMaintenance: "2024-11-20" },
-            { type: "Плата ТУ (Телеуправління)", model: "23ВА20", quantity: 3, nextMaintenance: "2025-01-10" },
-            { type: "Плата ТС (Телесигналізації)", model: "23ВЕ21", quantity: 8, nextMaintenance: "2025-01-10" },
-            { type: "Процесор", model: "560CMU05", quantity: 1, nextMaintenance: "2024-12-01" },
-            { type: "Флеш-карта RTU", model: "version 10", quantity: 1, nextMaintenance: "2025-03-15" },
-            { type: "Модем", model: "MikroTik RB260GS", quantity: 1, nextMaintenance: "2024-11-25" },
+            { type: "Монтажна панель", model: "25TP35", quantity: 1, nextMaintenance: "2024-12-15" },
+            { type: "Плата живлення", model: "620PSU02", quantity: 1, nextMaintenance: "2024-11-20" },
+            { type: "Плата ТУ (Телеуправління)", model: "25ВА30", quantity: 3, nextMaintenance: "2025-01-10" },
+            { type: "Плата ТС (Телесигналізації)", model: "25ВЕ31", quantity: 8, nextMaintenance: "2025-01-10" },
+            { type: "Процесор", model: "620CMU08", quantity: 1, nextMaintenance: "2024-12-01" },
+            { type: "Флеш-карта RTU", model: "version 12", quantity: 1, nextMaintenance: "2025-03-15" },
+            { type: "Модем", model: "Teltonika RUT955", quantity: 1, nextMaintenance: "2024-11-25" },
             { type: "Перетворювач RS-485", model: "-", quantity: 0, nextMaintenance: "-" },
             { type: "Автоматичний вимикач 10А", model: "10 А", quantity: 1, nextMaintenance: "2025-02-10" },
             { type: "Автоматичний вимикач 2А", model: "2 А", quantity: 1, nextMaintenance: "2025-02-10" },
             { type: "Розетка на DIN-рейці", model: "Розетка на DIN-рейці – 1 шт", quantity: 1, nextMaintenance: "2025-06-01" },
             { type: "Розеточна колодка", model: "Розеточна колодка – 2 шт", quantity: 1, nextMaintenance: "2025-06-01" },
-            { type: "Блок живлення КП", model: "23VG23", quantity: 1, nextMaintenance: "2024-12-20" },
-            { type: "Блок живлення розділовий", model: "SD-15B-24", quantity: 1, nextMaintenance: "2024-12-20" },
-            { type: "Акумулятор", model: "Yuasa NP7-12", quantity: 2, nextMaintenance: "2024-11-05" },
-            { type: "Обігрівач", model: "Pfannenberg FLH 150", quantity: 1, nextMaintenance: "2025-04-15" },
-            { type: "Термостат", model: "Pfannenberg FLZ 520", quantity: 1, nextMaintenance: "2025-04-15" }
+            { type: "Блок живлення КП", model: "25VG35", quantity: 1, nextMaintenance: "2024-12-20" },
+            { type: "Блок живлення розділовий", model: "HD-20C-24", quantity: 1, nextMaintenance: "2024-12-20" },
+            { type: "Акумулятор", model: "Fiamm FG20722", quantity: 2, nextMaintenance: "2024-11-05" },
+            { type: "Обігрівач", model: "Rittal SK 3105.200", quantity: 1, nextMaintenance: "2025-04-15" },
+            { type: "Термостат", model: "Rittal SK 3110.000", quantity: 1, nextMaintenance: "2025-04-15" }
           ],
           configFiles: [
             { name: "Конфігураційний файл ПС", type: "Файл", date: "2024-03-15" },
@@ -124,33 +124,33 @@ export default function Equipment() {
     },
     {
       id: 2,
-      name: "РП-22 м.Чернігів",
-      address: "вул. Промислова, 22, м. Чернігів",
+      name: "РП-47 м.Прилуки",
+      address: "вул. Заводська, 15, м. Прилуки",
       equipmentCount: 8,
       status: "active",
       type: "РП",
       equipment: [
         {
           id: 2,
-          name: "Комплекс ТМ РП-22",
+          name: "Комплекс ТМ РП-47",
           inventoryNumber: "INV-2024-002",
-          enterpriseCode: "EC-CHE-002",
+          enterpriseCode: "EC-PRI-002",
           installDate: "2023-01-20",
           status: "maintenance",
           nextMaintenance: "2024-09-20",
           components: [
             { type: "Шафа КП ТМ", model: "Стандартна шафа", quantity: 1, nextMaintenance: "2024-10-30" },
-            { type: "Мікропроцесорні пристрої", model: "МП-570М1В", quantity: 2, nextMaintenance: "2024-12-10" },
-            { type: "Лічильники", model: "Енергомера CE102M", quantity: 4, nextMaintenance: "2025-01-20" },
-            { type: "Модем", model: "iRZ ATM21", quantity: 1, nextMaintenance: "2024-11-15" },
+            { type: "Мікропроцесорні пристрої", model: "МП-630Р2В", quantity: 2, nextMaintenance: "2024-12-10" },
+            { type: "Лічильники", model: "Альфа A1800", quantity: 4, nextMaintenance: "2025-01-20" },
+            { type: "Модем", model: "Huawei ME909u", quantity: 1, nextMaintenance: "2024-11-15" },
             { type: "Антена", model: "Направлена антена", quantity: 1, nextMaintenance: "2025-03-01" }
           ],
           configFiles: [
             { name: "Конфігураційний файл РП", type: "Файл", date: "2024-01-15" },
-            { name: "Проєкт РП-22", type: "Проєкт", date: "2023-12-10" }
+            { name: "Проєкт РП-47", type: "Проєкт", date: "2023-12-10" }
           ],
           photos: [
-            { name: "Фото КП ТМ РП-22", type: "Фото КП ТМ", date: "2024-01-25" },
+            { name: "Фото КП ТМ РП-47", type: "Фото КП ТМ", date: "2024-01-25" },
             { name: "Фото обладнання РП", type: "Фото обладнання ПС", date: "2024-01-25" }
           ]
         }
@@ -158,26 +158,26 @@ export default function Equipment() {
     },
     {
       id: 3,
-      name: "СП-115-11 'Березна-Локнисте'",
-      address: "між с. Березна та с. Локнисте",
+      name: "СП-240-08 'Миколаївка-Ічня'",
+      address: "між с. Миколаївка та м. Ічня",
       equipmentCount: 5,
       status: "maintenance",
       type: "СП",
       equipment: [
         {
           id: 3,
-          name: "Реклоузер СП-115-11",
+          name: "Реклоузер СП-240-08",
           inventoryNumber: "INV-2024-003",
-          enterpriseCode: "EC-BER-003",
+          enterpriseCode: "EC-MYK-003",
           installDate: "2022-08-10",
           status: "active",
           nextMaintenance: "2024-12-15",
           components: [
-            { type: "Назва реклоузера", model: "Cooper Power Systems Form 6", quantity: 1, nextMaintenance: "2024-12-15" },
-            { type: "Модем", model: "Sierra Wireless AirLink", quantity: 1, nextMaintenance: "2024-11-30" },
+            { type: "Назва реклоузера", model: "Schneider Electric OSM15", quantity: 1, nextMaintenance: "2024-12-15" },
+            { type: "Модем", model: "Digi ConnectPort X4", quantity: 1, nextMaintenance: "2024-11-30" },
             { type: "Антени", model: "Направлена антена 4G", quantity: 2, nextMaintenance: "2025-02-28" },
             { type: "Блок живлення", model: "24В/5А", quantity: 1, nextMaintenance: "2024-12-05" },
-            { type: "Акумулятор", model: "AGM 12V/100Ah", quantity: 2, nextMaintenance: "2024-10-25" }
+            { type: "Акумулятор", model: "VRLA 12V/100Ah", quantity: 2, nextMaintenance: "2024-10-25" }
           ],
           photos: [
             { name: "Фото реклоузера", type: "Фото обладнання", date: "2024-01-10" },
@@ -191,17 +191,17 @@ export default function Equipment() {
   const equipment = [
     {
       id: 1,
-      name: "Комплекс ТМ на ПС 'Киїнка'",
+      name: "Комплекс ТМ на ПС 'Срібне'",
       inventoryNumber: "INV-2024-001",
-      enterpriseCode: "EC-KYV-001",
-      location: "ПС 'Киїнка'",
+      enterpriseCode: "EC-SRI-001",
+      location: "ПС 'Срібне'",
       installDate: "2023-03-15",
       status: "active",
       nextMaintenance: "2024-10-15",
       components: [
-        { type: "Процесор", model: "Intel Atom D525", quantity: 1 },
-        { type: "Модем", model: "iRZ ATM21", quantity: 1 },
-        { type: "ББЖ", model: "APC Smart-UPS 1500VA", quantity: 1 },
+        { type: "Процесор", model: "AMD Ryzen Embedded V1500B", quantity: 1 },
+        { type: "Модем", model: "Huawei ME909u", quantity: 1 },
+        { type: "ББЖ", model: "Eaton 5E 1100VA", quantity: 1 },
         { type: "Плата ТУ", model: "", quantity: 4 },
         { type: "Плата ТС", model: "", quantity: 8 }
       ],
@@ -215,18 +215,18 @@ export default function Equipment() {
     },
     {
       id: 2,
-      name: "ПС110-БС-Елань-А",
+      name: "ПС110-ЗС-Ічня-Б",
       inventoryNumber: "INV-2024-002",
-      enterpriseCode: "EC-ELN-002",
-      location: "РП 'Центральна'",
+      enterpriseCode: "EC-ICH-002",
+      location: "РП 'Східна'",
       installDate: "2023-01-20",
       status: "maintenance",
       nextMaintenance: "2024-09-20",
       components: [
-        { type: "Перетворювач RS-485", model: "Moxa-N2", quantity: 1 },
-        { type: "Контролер приєднань", model: "МР-570М1В", quantity: 2 },
-        { type: "ББЖ", model: "APC UPS 500", quantity: 1 },
-        { type: "Обігрівач", model: "Planshery-215 150v", quantity: 1 }
+        { type: "Перетворювач RS-485", model: "Advantech ADAM-4520", quantity: 1 },
+        { type: "Контролер приєднань", model: "МР-630Р2В", quantity: 2 },
+        { type: "ББЖ", model: "CyberPower UT650EG", quantity: 1 },
+        { type: "Обігрівач", model: "Rittal SK 3105.230", quantity: 1 }
       ],
       maintenanceSchedule: [
         { component: "Перетворювач RS-485", nextMaintenance: "2024-11-15" },
@@ -394,7 +394,7 @@ export default function Equipment() {
                 {locations
                   .filter(location => {
                     if (!selectedOrgUnit) return true; // No selection - show all
-                    if (selectedOrgUnit === "АТ ЧЕРНІГІВОБЛЕНЕРГО") return true; // Top level - show all
+                    if (selectedOrgUnit === "ОБЛМЕРЕЖІ") return true; // Top level - show all
                     return location.name.includes(selectedOrgUnit.split(' ').pop() || ''); // Filter by selected unit
                   })
                   .map((location) => (
