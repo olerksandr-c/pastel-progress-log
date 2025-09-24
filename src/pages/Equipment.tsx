@@ -26,6 +26,9 @@ import {
 export default function Equipment() {
   const [selectedOrgUnit, setSelectedOrgUnit] = React.useState<string | null>(null);
   const [showObjectPassport, setShowObjectPassport] = React.useState(false);
+  const [selectedObject, setSelectedObject] = React.useState<any>(null);
+  const [showNetworkMessage, setShowNetworkMessage] = React.useState(false);
+  
   const hierarchyData = [
     {
       id: "org1",
@@ -75,24 +78,113 @@ export default function Equipment() {
   const locations = [
     {
       id: 1,
-      name: "ПС 'Киїнка'",
-      address: "вул. Шевченка, 15, м. Київ",
-      equipmentCount: 12,
-      status: "active"
+      name: "ПС 110/35/10 'Городня'",
+      address: "с. Городня, Чернігівський район",
+      equipmentCount: 15,
+      status: "active",
+      type: "ПС",
+      equipment: [
+        {
+          id: 1,
+          name: "Комплекс ТМ на ПС 110/35/10 'Городня'",
+          inventoryNumber: "INV-2024-001",
+          enterpriseCode: "EC-GOR-001",
+          installDate: "2023-03-15",
+          status: "active",
+          nextMaintenance: "2024-10-15",
+          components: [
+            { type: "Монтажна панель", model: "23TP22", quantity: 1 },
+            { type: "Плата живлення", model: "560PSU01", quantity: 1 },
+            { type: "Плата ТУ (Телеуправління)", model: "23ВА20", quantity: 3 },
+            { type: "Плата ТС (Телесигналізації)", model: "23ВЕ21", quantity: 8 },
+            { type: "Процесор", model: "560CMU05", quantity: 1 },
+            { type: "Флеш-карта RTU", model: "version 10", quantity: 1 },
+            { type: "Модем", model: "MikroTik RB260GS", quantity: 1 },
+            { type: "Перетворювач RS-485", model: "-", quantity: 0 },
+            { type: "Автоматичний вимикач 10А", model: "10 А", quantity: 1 },
+            { type: "Автоматичний вимикач 2А", model: "2 А", quantity: 1 },
+            { type: "Розетка на DIN-рейці", model: "Розетка на DIN-рейці – 1 шт", quantity: 1 },
+            { type: "Розеточна колодка", model: "Розеточна колодка – 2 шт", quantity: 1 },
+            { type: "Блок живлення КП", model: "23VG23", quantity: 1 },
+            { type: "Блок живлення розділовий", model: "SD-15B-24", quantity: 1 },
+            { type: "Акумулятор", model: "Yuasa NP7-12", quantity: 2 },
+            { type: "Обігрівач", model: "Pfannenberg FLH 150", quantity: 1 },
+            { type: "Термостат", model: "Pfannenberg FLZ 520", quantity: 1 }
+          ],
+          configFiles: [
+            { name: "Конфігураційний файл ПС", type: "Файл", date: "2024-03-15" },
+            { name: "Проєкт модернізації", type: "Проєкт", date: "2024-01-20" }
+          ],
+          photos: [
+            { name: "Фото КП ТМ", type: "Фото КП ТМ", date: "2024-02-10" },
+            { name: "Фото обладнання ПС", type: "Фото обладнання ПС", date: "2024-02-10" }
+          ]
+        }
+      ]
     },
     {
       id: 2,
-      name: "РП 'Центральна'",
-      address: "пр. Центральний, 45, м. Київ",
+      name: "РП-22 м.Чернігів",
+      address: "вул. Промислова, 22, м. Чернігів",
       equipmentCount: 8,
-      status: "active"
+      status: "active",
+      type: "РП",
+      equipment: [
+        {
+          id: 2,
+          name: "Комплекс ТМ РП-22",
+          inventoryNumber: "INV-2024-002",
+          enterpriseCode: "EC-CHE-002",
+          installDate: "2023-01-20",
+          status: "maintenance",
+          nextMaintenance: "2024-09-20",
+          components: [
+            { type: "Шафа КП ТМ", model: "Стандартна шафа", quantity: 1 },
+            { type: "Мікропроцесорні пристрої", model: "МП-570М1В", quantity: 2 },
+            { type: "Лічильники", model: "Енергомера CE102M", quantity: 4 },
+            { type: "Модем", model: "iRZ ATM21", quantity: 1 },
+            { type: "Антена", model: "Направлена антена", quantity: 1 }
+          ],
+          configFiles: [
+            { name: "Конфігураційний файл РП", type: "Файл", date: "2024-01-15" },
+            { name: "Проєкт РП-22", type: "Проєкт", date: "2023-12-10" }
+          ],
+          photos: [
+            { name: "Фото КП ТМ РП-22", type: "Фото КП ТМ", date: "2024-01-25" },
+            { name: "Фото обладнання РП", type: "Фото обладнання ПС", date: "2024-01-25" }
+          ]
+        }
+      ]
     },
     {
       id: 3,
-      name: "ТП-10",
-      address: "вул. Промислова, 23, м. Київ",
+      name: "СП-115-11 'Березна-Локнисте'",
+      address: "між с. Березна та с. Локнисте",
       equipmentCount: 5,
-      status: "maintenance"
+      status: "maintenance",
+      type: "СП",
+      equipment: [
+        {
+          id: 3,
+          name: "Реклоузер СП-115-11",
+          inventoryNumber: "INV-2024-003",
+          enterpriseCode: "EC-BER-003",
+          installDate: "2022-08-10",
+          status: "active",
+          nextMaintenance: "2024-12-15",
+          components: [
+            { type: "Назва реклоузера", model: "Cooper Power Systems Form 6", quantity: 1 },
+            { type: "Модем", model: "Sierra Wireless AirLink", quantity: 1 },
+            { type: "Антени", model: "Направлена антена 4G", quantity: 2 },
+            { type: "Блок живлення", model: "24В/5А", quantity: 1 },
+            { type: "Акумулятор", model: "AGM 12V/100Ah", quantity: 2 }
+          ],
+          photos: [
+            { name: "Фото реклоузера", type: "Фото обладнання", date: "2024-01-10" },
+            { name: "Фото встановлення", type: "Фото обладнання", date: "2022-08-15" }
+          ]
+        }
+      ]
     }
   ];
 
@@ -229,7 +321,7 @@ export default function Equipment() {
       <Tabs defaultValue="locations" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="locations">Об'єкти</TabsTrigger>
-          <TabsTrigger value="network">Мережа</TabsTrigger>
+          <TabsTrigger value="network" onClick={() => setShowNetworkMessage(true)}>Мережа</TabsTrigger>
         </TabsList>
 
         <TabsContent value="network" className="space-y-6">
@@ -478,7 +570,10 @@ export default function Equipment() {
                   <Card 
                     key={location.id} 
                     className="hover:shadow-lg transition-shadow cursor-pointer"
-                    onClick={() => setShowObjectPassport(true)}
+                    onClick={() => {
+                      setSelectedObject(location);
+                      setShowObjectPassport(true);
+                    }}
                   >
                     <CardHeader>
                       <div className="flex items-start justify-between">
@@ -518,11 +613,220 @@ export default function Equipment() {
 
       {/* Object Passport Dialog */}
       <Dialog open={showObjectPassport} onOpenChange={setShowObjectPassport}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              Паспорт {selectedObject?.name}
+            </DialogTitle>
+            <DialogDescription>
+              Детальна інформація про обладнання об'єкту
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedObject && selectedObject.equipment && (
+            <div className="space-y-6">
+              {selectedObject.equipment.map((item: any) => (
+                <div key={item.id} className="space-y-4">
+                  {/* Equipment Header */}
+                  <div className="flex items-center justify-between border-b pb-4">
+                    <div>
+                      <h3 className="text-xl font-semibold">{item.name}</h3>
+                      <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+                        <span>Інв. №: {item.inventoryNumber}</span>
+                        <span>Код: {item.enterpriseCode}</span>
+                        <span>Встановлено: {item.installDate}</span>
+                      </div>
+                    </div>
+                    <Badge 
+                      variant={item.status === 'active' ? 'success' : 'warning'}
+                      className="text-xs"
+                    >
+                      {item.status === 'active' ? (
+                        <>
+                          <CheckCircle className="mr-1 h-3 w-3" />
+                          Активне
+                        </>
+                      ) : (
+                        <>
+                          <AlertCircle className="mr-1 h-3 w-3" />
+                          ТО
+                        </>
+                      )}
+                    </Badge>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left side - Equipment Schematic */}
+                    <div>
+                      <h4 className="text-sm font-medium mb-3 text-foreground">
+                        {selectedObject.type === 'СП' ? 'Схема СП' : 'Шафа КП ТМ'}
+                      </h4>
+                      <div className="border-2 border-border rounded-lg p-4 bg-muted/20 min-h-[200px] relative">
+                        {/* Simplified cabinet/equipment representation */}
+                        <div className="space-y-2">
+                          {selectedObject.type === 'СП' ? (
+                            // SP (Sectioning Point) layout
+                            <div className="space-y-3">
+                              <div className="border border-primary bg-primary/10 p-3 rounded text-xs text-center">
+                                Реклоузер
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
+                                  Модем
+                                </div>
+                                <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
+                                  Антени
+                                </div>
+                              </div>
+                              <div className="border border-muted-foreground/30 bg-muted p-2 rounded text-xs text-center">
+                                Блок живлення
+                              </div>
+                            </div>
+                          ) : (
+                            // PS/RP/TP layout
+                            <div className="space-y-2">
+                              <div className="border border-primary bg-primary/10 p-3 rounded text-xs text-center">
+                                {item.components.find((c: any) => c.type.includes("Процесор"))?.model || "Процесор"}
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
+                                  Модем
+                                </div>
+                                <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
+                                  ББЖ
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-4 gap-1">
+                                <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТУ</div>
+                                <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТУ</div>
+                                <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТС</div>
+                                <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТС</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Components List */}
+                      <div className="mt-4">
+                        <h4 className="text-sm font-medium mb-3 text-foreground">Компоненти</h4>
+                        <div className="grid grid-cols-1 gap-2 max-h-60 overflow-y-auto">
+                          {item.components.map((component: any, index: number) => (
+                            <div 
+                              key={index}
+                              className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm"
+                            >
+                              <div>
+                                <span className="font-medium">{component.type}</span>
+                                {component.model && component.model !== "-" && (
+                                  <div className="text-muted-foreground text-xs">
+                                    {component.model}
+                                  </div>
+                                )}
+                              </div>
+                              <Badge variant="secondary" className="text-xs">
+                                {component.quantity}
+                              </Badge>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right side - Additional Information */}
+                    <div className="space-y-4">
+                      {/* Configuration Files - only for PS/RP/TP */}
+                      {selectedObject.type !== 'СП' && item.configFiles && (
+                        <div>
+                          <h4 className="text-sm font-medium mb-3 text-foreground">
+                            Конфігураційні файли
+                          </h4>
+                          <div className="space-y-2">
+                            {item.configFiles.map((file: any, index: number) => (
+                              <div key={index} className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm">
+                                <div>
+                                  <span className="font-medium">{file.name}</span>
+                                  <div className="text-muted-foreground text-xs">
+                                    {file.type} • {file.date}
+                                  </div>
+                                </div>
+                                <Button variant="ghost" size="sm">
+                                  <HardDrive className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Photos */}
+                      {item.photos && (
+                        <div>
+                          <h4 className="text-sm font-medium mb-3 text-foreground">
+                            Фотографії
+                          </h4>
+                          <div className="space-y-2">
+                            {item.photos.map((photo: any, index: number) => (
+                              <div key={index} className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm">
+                                <div>
+                                  <span className="font-medium">{photo.name}</span>
+                                  <div className="text-muted-foreground text-xs">
+                                    {photo.type} • {photo.date}
+                                  </div>
+                                </div>
+                                <Button variant="ghost" size="sm">
+                                  <div className="w-8 h-8 bg-muted rounded flex items-center justify-center">
+                                    📷
+                                  </div>
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Maintenance Schedule - only if exists */}
+                      {item.maintenanceSchedule && (
+                        <div>
+                          <h4 className="text-sm font-medium mb-3 text-foreground">
+                            Графік технічного обслуговування
+                          </h4>
+                          <div className="border border-border rounded-lg">
+                            <div className="bg-muted/50 px-4 py-3 border-b border-border">
+                              <div className="grid grid-cols-2 gap-4 text-xs font-medium text-muted-foreground uppercase">
+                                <div>Компонент</div>
+                                <div>Дата ТО</div>
+                              </div>
+                            </div>
+                            <div className="divide-y divide-border max-h-40 overflow-y-auto">
+                              {item.maintenanceSchedule.map((maintenance: any, index: number) => (
+                                <div key={index} className="grid grid-cols-2 gap-4 px-4 py-3 text-sm hover:bg-muted/30">
+                                  <div className="font-medium">{maintenance.component}</div>
+                                  <div className="text-muted-foreground">
+                                    {maintenance.nextMaintenance}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Network Message Dialog */}
+      <Dialog open={showNetworkMessage} onOpenChange={setShowNetworkMessage}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Паспорт об'єкту</DialogTitle>
+            <DialogTitle>Мережа</DialogTitle>
             <DialogDescription>
-              Згодом тут буде паспорт об'єкту
+              Мережа буде реалізовано в наступних версіях
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
