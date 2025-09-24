@@ -93,23 +93,23 @@ export default function Equipment() {
           status: "active",
           nextMaintenance: "2024-10-15",
           components: [
-            { type: "Монтажна панель", model: "23TP22", quantity: 1 },
-            { type: "Плата живлення", model: "560PSU01", quantity: 1 },
-            { type: "Плата ТУ (Телеуправління)", model: "23ВА20", quantity: 3 },
-            { type: "Плата ТС (Телесигналізації)", model: "23ВЕ21", quantity: 8 },
-            { type: "Процесор", model: "560CMU05", quantity: 1 },
-            { type: "Флеш-карта RTU", model: "version 10", quantity: 1 },
-            { type: "Модем", model: "MikroTik RB260GS", quantity: 1 },
-            { type: "Перетворювач RS-485", model: "-", quantity: 0 },
-            { type: "Автоматичний вимикач 10А", model: "10 А", quantity: 1 },
-            { type: "Автоматичний вимикач 2А", model: "2 А", quantity: 1 },
-            { type: "Розетка на DIN-рейці", model: "Розетка на DIN-рейці – 1 шт", quantity: 1 },
-            { type: "Розеточна колодка", model: "Розеточна колодка – 2 шт", quantity: 1 },
-            { type: "Блок живлення КП", model: "23VG23", quantity: 1 },
-            { type: "Блок живлення розділовий", model: "SD-15B-24", quantity: 1 },
-            { type: "Акумулятор", model: "Yuasa NP7-12", quantity: 2 },
-            { type: "Обігрівач", model: "Pfannenberg FLH 150", quantity: 1 },
-            { type: "Термостат", model: "Pfannenberg FLZ 520", quantity: 1 }
+            { type: "Монтажна панель", model: "23TP22", quantity: 1, nextMaintenance: "2024-12-15" },
+            { type: "Плата живлення", model: "560PSU01", quantity: 1, nextMaintenance: "2024-11-20" },
+            { type: "Плата ТУ (Телеуправління)", model: "23ВА20", quantity: 3, nextMaintenance: "2025-01-10" },
+            { type: "Плата ТС (Телесигналізації)", model: "23ВЕ21", quantity: 8, nextMaintenance: "2025-01-10" },
+            { type: "Процесор", model: "560CMU05", quantity: 1, nextMaintenance: "2024-12-01" },
+            { type: "Флеш-карта RTU", model: "version 10", quantity: 1, nextMaintenance: "2025-03-15" },
+            { type: "Модем", model: "MikroTik RB260GS", quantity: 1, nextMaintenance: "2024-11-25" },
+            { type: "Перетворювач RS-485", model: "-", quantity: 0, nextMaintenance: "-" },
+            { type: "Автоматичний вимикач 10А", model: "10 А", quantity: 1, nextMaintenance: "2025-02-10" },
+            { type: "Автоматичний вимикач 2А", model: "2 А", quantity: 1, nextMaintenance: "2025-02-10" },
+            { type: "Розетка на DIN-рейці", model: "Розетка на DIN-рейці – 1 шт", quantity: 1, nextMaintenance: "2025-06-01" },
+            { type: "Розеточна колодка", model: "Розеточна колодка – 2 шт", quantity: 1, nextMaintenance: "2025-06-01" },
+            { type: "Блок живлення КП", model: "23VG23", quantity: 1, nextMaintenance: "2024-12-20" },
+            { type: "Блок живлення розділовий", model: "SD-15B-24", quantity: 1, nextMaintenance: "2024-12-20" },
+            { type: "Акумулятор", model: "Yuasa NP7-12", quantity: 2, nextMaintenance: "2024-11-05" },
+            { type: "Обігрівач", model: "Pfannenberg FLH 150", quantity: 1, nextMaintenance: "2025-04-15" },
+            { type: "Термостат", model: "Pfannenberg FLZ 520", quantity: 1, nextMaintenance: "2025-04-15" }
           ],
           configFiles: [
             { name: "Конфігураційний файл ПС", type: "Файл", date: "2024-03-15" },
@@ -139,11 +139,11 @@ export default function Equipment() {
           status: "maintenance",
           nextMaintenance: "2024-09-20",
           components: [
-            { type: "Шафа КП ТМ", model: "Стандартна шафа", quantity: 1 },
-            { type: "Мікропроцесорні пристрої", model: "МП-570М1В", quantity: 2 },
-            { type: "Лічильники", model: "Енергомера CE102M", quantity: 4 },
-            { type: "Модем", model: "iRZ ATM21", quantity: 1 },
-            { type: "Антена", model: "Направлена антена", quantity: 1 }
+            { type: "Шафа КП ТМ", model: "Стандартна шафа", quantity: 1, nextMaintenance: "2024-10-30" },
+            { type: "Мікропроцесорні пристрої", model: "МП-570М1В", quantity: 2, nextMaintenance: "2024-12-10" },
+            { type: "Лічильники", model: "Енергомера CE102M", quantity: 4, nextMaintenance: "2025-01-20" },
+            { type: "Модем", model: "iRZ ATM21", quantity: 1, nextMaintenance: "2024-11-15" },
+            { type: "Антена", model: "Направлена антена", quantity: 1, nextMaintenance: "2025-03-01" }
           ],
           configFiles: [
             { name: "Конфігураційний файл РП", type: "Файл", date: "2024-01-15" },
@@ -173,11 +173,11 @@ export default function Equipment() {
           status: "active",
           nextMaintenance: "2024-12-15",
           components: [
-            { type: "Назва реклоузера", model: "Cooper Power Systems Form 6", quantity: 1 },
-            { type: "Модем", model: "Sierra Wireless AirLink", quantity: 1 },
-            { type: "Антени", model: "Направлена антена 4G", quantity: 2 },
-            { type: "Блок живлення", model: "24В/5А", quantity: 1 },
-            { type: "Акумулятор", model: "AGM 12V/100Ah", quantity: 2 }
+            { type: "Назва реклоузера", model: "Cooper Power Systems Form 6", quantity: 1, nextMaintenance: "2024-12-15" },
+            { type: "Модем", model: "Sierra Wireless AirLink", quantity: 1, nextMaintenance: "2024-11-30" },
+            { type: "Антени", model: "Направлена антена 4G", quantity: 2, nextMaintenance: "2025-02-28" },
+            { type: "Блок живлення", model: "24В/5А", quantity: 1, nextMaintenance: "2024-12-05" },
+            { type: "Акумулятор", model: "AGM 12V/100Ah", quantity: 2, nextMaintenance: "2024-10-25" }
           ],
           photos: [
             { name: "Фото реклоузера", type: "Фото обладнання", date: "2024-01-10" },
@@ -325,179 +325,10 @@ export default function Equipment() {
         </TabsList>
 
         <TabsContent value="network" className="space-y-6">
-          {/* Search Equipment */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Пошук обладнання</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Пошук за назвою..."
-                    className="pl-10"
-                  />
-                </div>
-                <Input placeholder="Інвентарний номер" />
-                <Input placeholder="Код підприємства" />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Network Hierarchy */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Структура мережі</CardTitle>
-              <CardDescription>
-                Ієрархічне відображення організаційної структури
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {hierarchyData.map((node) => (
-                  <TreeNode key={node.id} node={node} />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Equipment List */}
-          <div className="space-y-4">
-            {equipment.map((item) => (
-              <Card key={item.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-2">
-                        <CardTitle className="text-lg">{item.name}</CardTitle>
-                        <Badge 
-                          variant={item.status === 'active' ? 'success' : 'warning'}
-                          className="text-xs"
-                        >
-                          {item.status === 'active' ? (
-                            <>
-                              <CheckCircle className="mr-1 h-3 w-3" />
-                              Активне
-                            </>
-                          ) : (
-                            <>
-                              <AlertCircle className="mr-1 h-3 w-3" />
-                              ТО
-                            </>
-                          )}
-                        </Badge>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4" />
-                          <span>{item.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span>Інв. №:</span>
-                          <span className="font-medium">{item.inventoryNumber}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4" />
-                          <span>Наступне ТО: {item.nextMaintenance}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="sm">
-                        <Wrench className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <Settings className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Left side - Equipment Schematic */}
-                    <div>
-                      <h4 className="text-sm font-medium mb-3 text-foreground">Шафа КП ТМ</h4>
-                      <div className="border-2 border-border rounded-lg p-4 bg-muted/20 min-h-[200px] relative">
-                        {/* Simplified cabinet representation */}
-                        <div className="space-y-2">
-                          <div className="border border-primary bg-primary/10 p-3 rounded text-xs text-center">
-                            {item.components.find(c => c.type === "Процесор")?.model || "Процесор"}
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
-                              Модем
-                            </div>
-                            <div className="border border-secondary bg-secondary/10 p-2 rounded text-xs text-center">
-                              ББЖ
-                            </div>
-                          </div>
-                          <div className="grid grid-cols-4 gap-1">
-                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТУ</div>
-                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТУ</div>
-                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТС</div>
-                            <div className="border border-muted-foreground/30 bg-muted p-1 rounded text-xs text-center">ТС</div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Components List */}
-                      <div className="mt-4">
-                        <h4 className="text-sm font-medium mb-3 text-foreground">Компоненти</h4>
-                        <div className="grid grid-cols-1 gap-2">
-                          {item.components.map((component, index) => (
-                            <div 
-                              key={index}
-                              className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm"
-                            >
-                              <div>
-                                <span className="font-medium">{component.type}</span>
-                                {component.model && (
-                                  <div className="text-muted-foreground text-xs">
-                                    {component.model}
-                                  </div>
-                                )}
-                              </div>
-                              <Badge variant="secondary" className="text-xs">
-                                {component.quantity}
-                              </Badge>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right side - Maintenance Schedule Table */}
-                    <div>
-                      <h4 className="text-sm font-medium mb-3 text-foreground">
-                        Перелік обладнання з датою заміни наступним ТО
-                      </h4>
-                      <div className="border border-border rounded-lg">
-                        <div className="bg-muted/50 px-4 py-3 border-b border-border">
-                          <div className="grid grid-cols-2 gap-4 text-xs font-medium text-muted-foreground uppercase">
-                            <div>Компонент</div>
-                            <div>Дата ТО</div>
-                          </div>
-                        </div>
-                        <div className="divide-y divide-border">
-                          {item.maintenanceSchedule.map((maintenance, index) => (
-                            <div key={index} className="grid grid-cols-2 gap-4 px-4 py-3 text-sm hover:bg-muted/30">
-                              <div className="font-medium">{maintenance.component}</div>
-                              <div className="text-muted-foreground">
-                                {maintenance.nextMaintenance}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="flex items-center justify-center min-h-[300px]">
+            <div className="text-center text-muted-foreground">
+              <p className="text-lg">Виберіть вкладку "Об'єкти" для перегляду об'єктів</p>
+            </div>
           </div>
         </TabsContent>
 
@@ -708,25 +539,34 @@ export default function Equipment() {
                       </div>
                       
                       {/* Components List */}
-                      <div className="mt-4">
-                        <h4 className="text-sm font-medium mb-3 text-foreground">Компоненти</h4>
-                        <div className="grid grid-cols-1 gap-2 max-h-60 overflow-y-auto">
+                      <div className="mt-6">
+                        <h4 className="text-sm font-medium mb-4 text-foreground">Компоненти</h4>
+                        <div className="space-y-3 max-h-80 overflow-y-auto pr-2">
                           {item.components.map((component: any, index: number) => (
                             <div 
                               key={index}
-                              className="flex items-center justify-between p-2 bg-muted/50 rounded text-sm"
+                              className="flex items-center justify-between p-3 bg-card border border-border rounded-lg hover:bg-muted/30 transition-colors"
                             >
-                              <div>
-                                <span className="font-medium">{component.type}</span>
+                              <div className="flex-1 min-w-0">
+                                <div className="font-medium text-foreground">{component.type}</div>
                                 {component.model && component.model !== "-" && (
-                                  <div className="text-muted-foreground text-xs">
+                                  <div className="text-muted-foreground text-xs mt-1">
                                     {component.model}
                                   </div>
                                 )}
                               </div>
-                              <Badge variant="secondary" className="text-xs">
-                                {component.quantity}
-                              </Badge>
+                              <div className="flex items-center gap-3 ml-4">
+                                <div className="text-right">
+                                  <Badge variant="secondary" className="text-xs mb-1">
+                                    {component.quantity}
+                                  </Badge>
+                                  {component.nextMaintenance && component.nextMaintenance !== "-" && (
+                                    <div className="text-xs text-muted-foreground">
+                                      ТО: {component.nextMaintenance}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
                             </div>
                           ))}
                         </div>
