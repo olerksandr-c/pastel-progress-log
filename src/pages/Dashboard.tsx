@@ -11,9 +11,13 @@ import {
   MapPin
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import TaskCard from "@/components/TaskCard";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [selectedTask, setSelectedTask] = useState<any>(null);
+  const [showTaskCard, setShowTaskCard] = useState(false);
   const stats = [
     {
       title: "Активні роботи",
@@ -143,7 +147,11 @@ export default function Dashboard() {
             {recentWork.map((work) => (
               <div 
                 key={work.id}
-                className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                onClick={() => {
+                  setSelectedTask(work);
+                  setShowTaskCard(true);
+                }}
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2">
@@ -176,6 +184,12 @@ export default function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+      <TaskCard 
+        task={selectedTask}
+        isOpen={showTaskCard}
+        onClose={() => setShowTaskCard(false)}
+      />
     </div>
   );
 }

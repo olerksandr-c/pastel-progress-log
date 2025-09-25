@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import MapModal from "@/components/MapModal";
 import { 
   Search, 
   Plus, 
@@ -35,6 +36,7 @@ export default function Equipment() {
   const [selectedObject, setSelectedObject] = React.useState<any>(null);
   const [showNetworkMessage, setShowNetworkMessage] = React.useState(false);
   const [showFiltersModal, setShowFiltersModal] = React.useState(false);
+  const [showMapModal, setShowMapModal] = React.useState(false);
   
   const hierarchyData = [
     {
@@ -667,22 +669,30 @@ export default function Equipment() {
            )}
            
            {/* Action Button */}
-           <div className="flex justify-end pt-4 border-t border-border">
-             <Button 
-               onClick={() => {
-                 setShowObjectPassport(false);
-                 navigate('/objects-map');
-               }}
-               className="bg-primary hover:bg-primary/90"
-             >
-               <MapPin className="mr-2 h-4 w-4" />
-               Переглянути на карті
-             </Button>
-           </div>
+            <div className="flex justify-end pt-4 border-t border-border">
+              <Button 
+                onClick={() => {
+                  setShowObjectPassport(false);
+                  setShowMapModal(true);
+                }}
+                className="bg-primary hover:bg-primary/90"
+              >
+                <MapPin className="mr-2 h-4 w-4" />
+                Переглянути на карті
+              </Button>
+            </div>
          </DialogContent>
-       </Dialog>
+        </Dialog>
 
-       {/* Filters Modal */}
+        {/* Map Modal */}
+        <MapModal 
+          isOpen={showMapModal}
+          onClose={() => setShowMapModal(false)}
+          objectName={selectedObject?.name || ""}
+          address={selectedObject?.address}
+        />
+
+        {/* Filters Modal */}
        <Dialog open={showFiltersModal} onOpenChange={setShowFiltersModal}>
          <DialogContent className="max-w-2xl">
            <DialogHeader>
