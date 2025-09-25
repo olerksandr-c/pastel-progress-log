@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { 
   Search, 
   Plus, 
@@ -20,14 +23,18 @@ import {
   ChevronDown,
   Building2,
   Zap,
-  Network
+  Network,
+  Filter,
+  X
 } from "lucide-react";
 
 export default function Equipment() {
+  const navigate = useNavigate();
   const [selectedOrgUnit, setSelectedOrgUnit] = React.useState<string | null>(null);
   const [showObjectPassport, setShowObjectPassport] = React.useState(false);
   const [selectedObject, setSelectedObject] = React.useState<any>(null);
   const [showNetworkMessage, setShowNetworkMessage] = React.useState(false);
+  const [showFiltersModal, setShowFiltersModal] = React.useState(false);
   
   const hierarchyData = [
     {
@@ -377,7 +384,8 @@ export default function Equipment() {
                         />
                       </div>
                     </div>
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={() => setShowFiltersModal(true)}>
+                      <Filter className="mr-2 h-4 w-4" />
                       Фільтри
                     </Button>
                   </div>
@@ -651,14 +659,133 @@ export default function Equipment() {
                           </div>
                         </div>
                       )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+                     </div>
+                   </div>
+                 </div>
+               ))}
+             </div>
+           )}
+           
+           {/* Action Button */}
+           <div className="flex justify-end pt-4 border-t border-border">
+             <Button 
+               onClick={() => {
+                 setShowObjectPassport(false);
+                 navigate('/objects-map');
+               }}
+               className="bg-primary hover:bg-primary/90"
+             >
+               <MapPin className="mr-2 h-4 w-4" />
+               Переглянути на карті
+             </Button>
+           </div>
+         </DialogContent>
+       </Dialog>
+
+       {/* Filters Modal */}
+       <Dialog open={showFiltersModal} onOpenChange={setShowFiltersModal}>
+         <DialogContent className="max-w-2xl">
+           <DialogHeader>
+             <DialogTitle>Налаштування фільтрів</DialogTitle>
+             <DialogDescription>
+               Налаштуйте фільтри для пошуку об'єктів
+             </DialogDescription>
+           </DialogHeader>
+           
+           <div className="space-y-6 py-4">
+             {/* Секція 1: Фільтр за розташуванням та типом */}
+             <div className="space-y-4">
+               <h3 className="text-sm font-medium">Розташування та тип</h3>
+               
+               <div className="grid grid-cols-2 gap-4">
+                 <div className="space-y-2">
+                   <Label>Структурний підрозділ</Label>
+                   <Select>
+                     <SelectTrigger>
+                       <SelectValue placeholder="Виберіть підрозділ" />
+                     </SelectTrigger>
+                     <SelectContent>
+                       <SelectItem value="all">Всі підрозділи</SelectItem>
+                       <SelectItem value="west-rem">ВП Західний РЕМ</SelectItem>
+                       <SelectItem value="nov-dep">Новоселівська дільниця</SelectItem>
+                       <SelectItem value="pri-dep">Прилуцька дільниця</SelectItem>
+                     </SelectContent>
+                   </Select>
+                 </div>
+                 
+                 <div className="space-y-2">
+                   <Label>Тип об'єкта</Label>
+                   <div className="flex flex-col space-y-2">
+                     <div className="flex items-center space-x-2">
+                       <Checkbox id="type-ps" />
+                       <Label htmlFor="type-ps" className="text-sm">ПС (Підстанції)</Label>
+                     </div>
+                     <div className="flex items-center space-x-2">
+                       <Checkbox id="type-rp" />
+                       <Label htmlFor="type-rp" className="text-sm">РП/ТП</Label>
+                     </div>
+                     <div className="flex items-center space-x-2">
+                       <Checkbox id="type-sp" />
+                       <Label htmlFor="type-sp" className="text-sm">СП</Label>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+             {/* Секція 2: Фільтр за наявністю обладнання */}
+             <div className="space-y-4">
+               <h3 className="text-sm font-medium">Обладнання, що міститься на об'єкті</h3>
+               <div className="space-y-2">
+                 <Select>
+                   <SelectTrigger>
+                     <SelectValue placeholder="Виберіть типи обладнання" />
+                   </SelectTrigger>
+                   <SelectContent>
+                     <SelectItem value="recloser">Реклоузер</SelectItem>
+                     <SelectItem value="counter">Лічильник</SelectItem>
+                     <SelectItem value="modem">Модем</SelectItem>
+                     <SelectItem value="antenna">Антена</SelectItem>
+                     <SelectItem value="processor">Процесор</SelectItem>
+                     <SelectItem value="power-supply">Блок живлення</SelectItem>
+                   </SelectContent>
+                 </Select>
+               </div>
+             </div>
+
+             {/* Секція 3: Пошук за конкретним обладнанням */}
+             <div className="space-y-4">
+               <h3 className="text-sm font-medium">Знайти об'єкт за конкретним обладнанням</h3>
+               <div className="grid grid-cols-2 gap-4">
+                 <div className="space-y-2">
+                   <Label htmlFor="inv-number">Інвентарний номер</Label>
+                   <Input
+                     id="inv-number"
+                     placeholder="Наприклад: INV-2024-001"
+                   />
+                 </div>
+                 <div className="space-y-2">
+                   <Label htmlFor="sap-code">Код у SAP</Label>
+                   <Input
+                     id="sap-code"
+                     placeholder="Наприклад: EC-NOV-001"
+                   />
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           {/* Панель дій */}
+           <div className="flex justify-between pt-4 border-t border-border">
+             <Button variant="outline" onClick={() => setShowFiltersModal(false)}>
+               Скинути
+             </Button>
+             <Button onClick={() => setShowFiltersModal(false)}>
+               Застосувати
+             </Button>
+           </div>
+         </DialogContent>
+       </Dialog>
 
       {/* Network Message Dialog */}
       <Dialog open={showNetworkMessage} onOpenChange={setShowNetworkMessage}>

@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
+import TaskCard from "@/components/TaskCard";
 import { 
   Plus, 
   Search, 
@@ -24,6 +25,8 @@ import autoTable from 'jspdf-autotable';
 export default function WorkJournal() {
   const navigate = useNavigate();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isTaskCardOpen, setIsTaskCardOpen] = useState(false);
 
   const generatePDFReport = () => {
     const doc = new jsPDF();
@@ -169,11 +172,24 @@ export default function WorkJournal() {
             <Download className="mr-2 h-4 w-4" />
             Сформувати звіт
           </Button>
-          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm">
+              <Button size="sm" onClick={() => {
+                setSelectedTask({
+                  id: "W-NEW",
+                  title: "Нове завдання на роботу",
+                  status: "На розгляді",
+                  engineer: "",
+                  location: "",
+                  description: "",
+                  createdDate: new Date().toLocaleDateString('uk-UA'),
+                  scheduledDate: "",
+                  completedDate: null
+                });
+                setIsTaskCardOpen(true);
+              }}>
                 <Plus className="mr-2 h-4 w-4" />
-                Створити запис
+                Створити завдання
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
@@ -349,6 +365,10 @@ export default function WorkJournal() {
               <div 
                 key={order.id}
                 className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors cursor-pointer"
+                onClick={() => {
+                  setSelectedTask(order);
+                  setIsTaskCardOpen(true);
+                }}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
@@ -403,6 +423,16 @@ export default function WorkJournal() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Task Card Modal */}
+      <TaskCard 
+        task={selectedTask}
+        isOpen={isTaskCardOpen}
+        onClose={() => {
+          setIsTaskCardOpen(false);
+          setSelectedTask(null);
+        }}
+      />
     </div>
   );
 }
