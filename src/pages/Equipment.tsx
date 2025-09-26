@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import MapModal from "@/components/MapModal";
+import AddElementModal from "@/components/AddElementModal";
 import { 
   Search, 
   Plus, 
@@ -37,6 +38,7 @@ export default function Equipment() {
   const [showNetworkMessage, setShowNetworkMessage] = React.useState(false);
   const [showFiltersModal, setShowFiltersModal] = React.useState(false);
   const [showMapModal, setShowMapModal] = React.useState(false);
+  const [showAddElements, setShowAddElements] = React.useState(false);
   
   const hierarchyData = [
     {
@@ -668,8 +670,17 @@ export default function Equipment() {
              </div>
            )}
            
-           {/* Action Button */}
-            <div className="flex justify-end pt-4 border-t border-border">
+            {/* Action Buttons */}
+            <div className="flex justify-between pt-4 border-t border-border">
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  setShowAddElements(true);
+                }}
+              >
+                <Plus className="mr-2 h-4 w-4" />
+                Додати елементи
+              </Button>
               <Button 
                 onClick={() => {
                   setShowObjectPassport(false);
@@ -683,6 +694,13 @@ export default function Equipment() {
             </div>
          </DialogContent>
         </Dialog>
+
+        {/* Add Elements Modal */}
+        <AddElementModal 
+          isOpen={showAddElements}
+          onClose={() => setShowAddElements(false)}
+          objectName={selectedObject?.name || ""}
+        />
 
         {/* Map Modal */}
         <MapModal 
