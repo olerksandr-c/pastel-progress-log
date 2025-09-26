@@ -30,7 +30,7 @@ export default function MapModal({ isOpen, onClose, objectName, address }: MapMo
               )}
               <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
                 <p className="text-sm text-muted-foreground">
-                  Інтеграція з картографічним сервісом буде реалізована в наступних версіях
+                  Інтеграція з картографічним сервісом буде реалізована в продуктивній версії
                 </p>
               </div>
             </div>
