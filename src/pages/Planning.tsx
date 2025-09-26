@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import TaskCard from "@/components/TaskCard";
 import { 
   Plus, 
   Calendar, 
@@ -22,6 +24,9 @@ import {
 export default function Planning() {
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [isScheduleDialogOpen, setIsScheduleDialogOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<any>(null);
+  const [showTaskCard, setShowTaskCard] = useState(false);
+  const [showImportAlert, setShowImportAlert] = useState(false);
 
   const maintenanceSchedules = [
     {
@@ -249,7 +254,7 @@ export default function Planning() {
                     variant="outline" 
                     size="sm" 
                     className="flex-1"
-                    onClick={() => setShowImportDialog(true)}
+                    onClick={() => setShowImportAlert(true)}
                   >
                     <Download className="mr-2 h-4 w-4" />
                     Імпорт дефектів
@@ -291,8 +296,20 @@ export default function Planning() {
                     location: "ТП-10",
                     priority: "Низький"
                   }
-                ].map((task) => (
-                  <div key={task.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
+                 ].map((task) => (
+                  <div key={task.id} className="flex items-center justify-between p-3 border border-border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                       onClick={() => {
+                         setSelectedTask({
+                           ...task,
+                           object: task.location,
+                           equipment: "Комплекс ТМ",
+                           description: task.title,
+                           status: "На розгляд",
+                           assignedTo: "Не призначено",
+                           scheduledDate: new Date().toISOString().split('T')[0]
+                         });
+                         setShowTaskCard(true);
+                       }}>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <h4 className="font-medium">{task.title}</h4>
@@ -306,7 +323,7 @@ export default function Planning() {
                       </div>
                       <div className="text-sm text-muted-foreground">{task.location}</div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                       <Button variant="outline" size="sm">Відхилити</Button>
                       <Button size="sm">Включити до плану</Button>
                     </div>
@@ -421,7 +438,19 @@ export default function Planning() {
                 {upcomingTasks.map((task) => (
                   <div 
                     key={task.id}
-                    className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors"
+                    className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors cursor-pointer"
+                    onClick={() => {
+                      setSelectedTask({
+                        ...task,
+                        object: task.location,
+                        equipment: "Комплекс ТМ",
+                        description: task.description,
+                        status: "Заплановано",
+                        assignedTo: task.assignedEngineer,
+                        scheduledDate: task.scheduledDate
+                      });
+                      setShowTaskCard(true);
+                    }}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
@@ -461,7 +490,7 @@ export default function Planning() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-2 ml-4">
+                      <div className="flex items-center gap-2 ml-4" onClick={(e) => e.stopPropagation()}>
                         <Button variant="outline" size="sm">
                           Редагувати
                         </Button>
@@ -478,17 +507,28 @@ export default function Planning() {
         </TabsContent>
       </Tabs>
 
-      {/* Import Defects Dialog */}
-      <Dialog open={showImportDialog} onOpenChange={setShowImportDialog}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Імпорт дефектів</DialogTitle>
-            <DialogDescription>
-              Буде реалізовано в перспективі
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      {/* Import Defects Alert */}
+      <AlertDialog open={showImportAlert} onOpenChange={setShowImportAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Імпорт дефектів</AlertDialogTitle>
+            <AlertDialogDescription>
+              Імпорт буде реалізовано в перспективі
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setShowImportAlert(false)}>
+              Зрозуміло
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <TaskCard 
+        task={selectedTask}
+        isOpen={showTaskCard}
+        onClose={() => setShowTaskCard(false)}
+      />
     </div>
   );
 }

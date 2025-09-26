@@ -223,15 +223,11 @@ export default function Administration() {
         <TabsContent value="directories" className="space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Довідники системи</h3>
-            <Button size="sm">
-              <Plus className="mr-2 h-4 w-4" />
-              Додати довідник
-            </Button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {directories.map((directory) => (
-              <Card key={directory.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={directory.id} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div>
@@ -244,7 +240,7 @@ export default function Administration() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-sm mb-4">
                     <div>
                       <span className="text-muted-foreground">Записів: </span>
                       <span className="font-medium">{directory.recordsCount}</span>
@@ -254,7 +250,99 @@ export default function Administration() {
                       <span className="font-medium">{directory.lastUpdated}</span>
                     </div>
                   </div>
-                  <div className="flex gap-2 mt-4">
+                  
+                  {/* Example Records */}
+                  {directory.id === 1 && (
+                    <div className="space-y-2 mb-4 p-3 bg-muted/30 rounded-lg">
+                      <div className="text-xs font-medium text-muted-foreground uppercase">Приклад записів:</div>
+                      <div className="space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span>Ніжинський РЕМ</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Прилуцький РЕМ</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Бахмацька дільниця</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm" className="w-full mt-2">
+                        <Plus className="mr-2 h-3 w-3" />
+                        Додати підрозділ
+                      </Button>
+                    </div>
+                  )}
+                  
+                  {directory.id === 2 && (
+                    <div className="space-y-2 mb-4 p-3 bg-muted/30 rounded-lg">
+                      <div className="text-xs font-medium text-muted-foreground uppercase">Приклад записів:</div>
+                      <div className="space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span>Комплекс ТМ</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>ББЖ</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Модем GSM</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm" className="w-full mt-2">
+                        <Plus className="mr-2 h-3 w-3" />
+                        Додати тип компонента
+                      </Button>
+                    </div>
+                  )}
+                  
+                  {directory.id === 3 && (
+                    <div className="space-y-2 mb-4 p-3 bg-muted/30 rounded-lg">
+                      <div className="text-xs font-medium text-muted-foreground uppercase">Приклад записів:</div>
+                      <div className="space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span>ПС (Підстанція)</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>РП (Розподільний пункт)</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>ТП (Трансформаторний пункт)</span>
+                          <Button variant="ghost" size="sm" className="h-6 px-2">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm" className="w-full mt-2">
+                        <Plus className="mr-2 h-3 w-3" />
+                        Додати тип об'єкта
+                      </Button>
+                    </div>
+                  )}
+                  
+                  <div className="flex gap-2">
                     <Button variant="outline" size="sm" className="flex-1">
                       <Edit className="mr-2 h-4 w-4" />
                       Редагувати
