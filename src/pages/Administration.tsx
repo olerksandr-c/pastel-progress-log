@@ -4,11 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Plus, 
-  Search, 
-  Users, 
-  Settings, 
+import {
+  Plus,
+  Search,
+  Users,
+  Settings,
   Shield,
   Database,
   BookOpen,
@@ -175,7 +175,7 @@ export default function Administration() {
             <CardContent>
               <div className="space-y-4">
                 {users.map((user) => (
-                  <div 
+                  <div
                     key={user.id}
                     className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
                   >
@@ -186,7 +186,7 @@ export default function Administration() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="font-medium text-foreground">{user.name}</h3>
-                          <Badge 
+                          <Badge
                             variant={user.status === 'active' ? 'success' : 'secondary'}
                             className="text-xs"
                           >
@@ -201,7 +201,7 @@ export default function Administration() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-2">
                       <Button variant="ghost" size="sm">
                         <Edit className="h-4 w-4" />
@@ -250,9 +250,10 @@ export default function Administration() {
                       <span className="font-medium">{directory.lastUpdated}</span>
                     </div>
                   </div>
-                  
+
                   {/* Example Records */}
-                  {directory.id === 1 && (
+
+                  {/* {directory.id === 1 && (
                     <div className="space-y-2 mb-4 p-3 bg-muted/30 rounded-lg">
                       <div className="text-xs font-medium text-muted-foreground uppercase">Приклад записів:</div>
                       <div className="space-y-1 text-sm">
@@ -280,9 +281,9 @@ export default function Administration() {
                         Додати підрозділ
                       </Button>
                     </div>
-                  )}
-                  
-                  {directory.id === 2 && (
+                  )} */}
+
+                  {/* {directory.id === 2 && (
                     <div className="space-y-2 mb-4 p-3 bg-muted/30 rounded-lg">
                       <div className="text-xs font-medium text-muted-foreground uppercase">Приклад записів:</div>
                       <div className="space-y-1 text-sm">
@@ -310,9 +311,9 @@ export default function Administration() {
                         Додати тип компонента
                       </Button>
                     </div>
-                  )}
-                  
-                  {directory.id === 3 && (
+                  )} */}
+
+                  {/* {directory.id === 3 && (
                     <div className="space-y-2 mb-4 p-3 bg-muted/30 rounded-lg">
                       <div className="text-xs font-medium text-muted-foreground uppercase">Приклад записів:</div>
                       <div className="space-y-1 text-sm">
@@ -340,8 +341,8 @@ export default function Administration() {
                         Додати тип об'єкта
                       </Button>
                     </div>
-                  )}
-                  
+                  )} */}
+
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" className="flex-1">
                       <Edit className="mr-2 h-4 w-4" />
@@ -520,23 +521,23 @@ export default function Administration() {
                     <Label htmlFor="system-name">Назва системи</Label>
                     <Input id="system-name" defaultValue="E-Works Journal" />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="timezone">Часовий пояс</Label>
                     <Input id="timezone" defaultValue="Europe/Kiev" />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="backup-frequency">Періодичність резервування</Label>
                     <Input id="backup-frequency" defaultValue="Щоденно о 02:00" />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="session-timeout">Таймаут сесії (хвилини)</Label>
                     <Input id="session-timeout" type="number" defaultValue="480" />
                   </div>
                 </div>
-                
+
                 <div className="flex justify-end gap-2">
                   <Button variant="outline">Скасувати</Button>
                   <Button>Зберегти налаштування</Button>
